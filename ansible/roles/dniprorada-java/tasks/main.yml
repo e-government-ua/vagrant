@@ -1,0 +1,15 @@
+---
+
+- name: Stop Tomcat
+  service: name=tomcat state=stopped 
+
+- name: Building workflow project
+  command: /usr/bin/mvn install -DskipTests
+  args:
+    chdir: /project
+
+- name: Start Tomcat
+  service: name=tomcat state=started enabled=yes
+
+- name: wait for tomcat to start
+  wait_for: port={{http_port}}

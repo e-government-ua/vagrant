@@ -1,0 +1,62 @@
+---
+- name: Install Java 1.7
+  apt: name=openjdk-7-jdk state=present update_cache=yes
+
+- name: add group "tomcat"
+  group: name=tomcat
+
+- name: add user "tomcat"
+  user: name=tomcat group=tomcat home=/usr/share/tomcat
+  sudo: True
+
+- name: delete home dir for symlink of tomcat
+  shell: rm -fr /usr/share/tomcat
+  sudo: True
+
+- name: download maven
+  get_url: url=http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz dest=/opt/apache-maven-3.3.1-bin.tar.gz
+
+- name: extract maven
+  command: tar xzf /opt/apache-maven-3.3.1-bin.tar.gz chdir=/opt creates=/opt/apache-maven-3.3.1
+
+- name: place maven on execution path
+  file: src=/opt/apache-maven-3.3.1/bin/mvn dest=/usr/bin/mvn  state=link
+
+- name: copy maven settings
+  copy: src=maven.sh dest=/etc/profile.d owner=root group=root mode=0644
+
+
+
+- name: Download Tomcat
+  get_url: url=http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz dest=/opt/apache-tomcat-8.0.21.tar.gz
+
+- name: Extract archive
+  command: chdir=/opt /bin/tar zxf apache-tomcat-8.0.21.tar.gz creates=/opt/apache-tomcat-8.0.21
+
+- name: Symlink install directory
+  file: src=/opt/apache-tomcat-8.0.21 path=/usr/share/tomcat state=link
+
+- name: Change ownership of Tomcat installation
+  file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
+
+- name: copy egov-env setting
+  copy: src=egov-env.sh dest=/etc/profile.d owner=root group=root mode=0644
+
+- name: Configure Tomcat server
+  template: src=server.xml dest=/usr/share/tomcat/conf/
+  notify: restart tomcat
+
+- name: Configure Tomcat users
+  template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
+  notify: restart tomcat
+
+- name: Install Tomcat init script
+  copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
+
+- name: Start Tomcat
+  service: name=tomcat state=started enabled=yes
+
+
+
+- name: wait for tomcat to start
+  wait_for: port={{http_port}}
