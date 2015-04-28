@@ -9,7 +9,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   #config.vm.box = "chef/debian-7.7"
   config.vm.network "private_network", ip: "192.168.10.10"
-  config.vm.synced_folder ".", "/project"
+  config.vm.synced_folder "./project", "/project"
   config.ssh.insert_key = false
 
 #  config.vm.provision :shell, path: "scripts/prepare_machine.sh"
