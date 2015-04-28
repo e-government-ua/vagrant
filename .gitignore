@@ -8,6 +8,8 @@
 .settings
 .settings/*
 
+project/*
+
 # IntelliJ Idea
 .idea
 .iml
