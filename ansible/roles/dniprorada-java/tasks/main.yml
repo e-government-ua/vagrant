@@ -8,6 +8,9 @@
   args:
     chdir: /project
 
+- name: copy application to webapp directory
+  command: cp /project/wf-dniprorada/target/wf-dniprorada.war /usr/share/tomcat/webapps/wf-dniprorada.war
+
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
 

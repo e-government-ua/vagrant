@@ -1,0 +1,13 @@
+How It Work
+
+cd ./project
+ 
+ git clone https://github.com/e-government-ua/i.git
+
+ cd ..
+
+vagrant up
+
+ansible-playbook ./ansible/site.yml -i ./ansible/hosts  -vvv
+
+open address 192.168.10.10:8080
