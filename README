@@ -17,6 +17,7 @@ cd ./vagrant
 cd ./project
 rm -rf * 
 git clone https://github.com/e-government-ua/i.git .
+git checkout test
 touch .new
 cd ..
 
