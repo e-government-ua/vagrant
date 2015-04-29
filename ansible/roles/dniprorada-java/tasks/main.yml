@@ -7,7 +7,12 @@
   command: /usr/bin/mvn clean
   args:
     chdir: /project
-    
+
+- name: Clean redis 
+  command: /usr/bin/mvn clean install 
+  args:
+    chdir: /project/redis  
+
 - name: Building workflow project
   command: /usr/bin/mvn install -DskipTests
   args:
