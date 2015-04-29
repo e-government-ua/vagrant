@@ -15,7 +15,9 @@ cd ./vagrant
 
 завантажити робочий проект e-government-ua у  теку project
 cd ./project
-git clone https://github.com/e-government-ua/i.git
+rm -rf * 
+git clone https://github.com/e-government-ua/i.git .
+touch .new
 cd ..
 
 Розгорнути віртуальну машину на вагранті
