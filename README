@@ -8,6 +8,10 @@ cd ./project
 
 vagrant up
 
+nano ~/.ssh/known_hosts
+
+drop key previous vagrant installation if need 
+
 ansible-playbook ./ansible/site.yml -i ./ansible/hosts  -vvv
 
 open address 192.168.10.10:8080

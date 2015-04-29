@@ -14,27 +14,31 @@
   sudo: True
 
 - name: download maven
-  get_url: url=http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz dest=/opt/apache-maven-3.3.1-bin.tar.gz
+  get_url: url={{maven_url}} dest=/root/apache-maven.tar.gz
 
 - name: extract maven
-  command: tar xzf /opt/apache-maven-3.3.1-bin.tar.gz chdir=/opt creates=/opt/apache-maven-3.3.1
+  command: /bin/tar xzf /root/apache-maven.tar.gz chdir=/opt creates=/opt/apache-maven
+
+- name: rename maven dir
+  shell: mv /opt/apache-maven* /opt/apache-maven
 
 - name: place maven on execution path
-  file: src=/opt/apache-maven-3.3.1/bin/mvn dest=/usr/bin/mvn  state=link
+  file: src=/opt/apache-maven/bin/mvn dest=/usr/bin/mvn  state=link
 
 - name: copy maven settings
   copy: src=maven.sh dest=/etc/profile.d owner=root group=root mode=0644
 
-
-
 - name: Download Tomcat
-  get_url: url=http://apache.cp.if.ua/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz dest=/opt/apache-tomcat-8.0.21.tar.gz
+  get_url: url={{tomcat_url}} dest=/root/apache-tomcat.tar.gz
 
 - name: Extract archive
-  command: chdir=/opt /bin/tar zxf apache-tomcat-8.0.21.tar.gz creates=/opt/apache-tomcat-8.0.21
+  command: chdir=/opt /bin/tar zxf /root/apache-tomcat.tar.gz creates=/opt/apache-tomcat
+
+- name: rename tomcat dir
+  shell: mv /opt/apache-tomcat* /opt/apache-tomcat
 
 - name: Symlink install directory
-  file: src=/opt/apache-tomcat-8.0.21 path=/usr/share/tomcat state=link
+  file: src=/opt/apache-tomcat path=/usr/share/tomcat state=link
 
 - name: Change ownership of Tomcat installation
   file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes

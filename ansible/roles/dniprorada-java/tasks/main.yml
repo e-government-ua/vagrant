@@ -3,6 +3,11 @@
 - name: Stop Tomcat
   service: name=tomcat state=stopped 
 
+- name: Clean up the project
+  command: /usr/bin/mvn clean
+  args:
+    chdir: /project
+    
 - name: Building workflow project
   command: /usr/bin/mvn install -DskipTests
   args:
