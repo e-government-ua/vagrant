@@ -1,17 +1,51 @@
-How It Work
+# Як розгорнути тестове середовище розробника
 
+1. Завантажити та встановити Vagrant за посиланням  https://www.vagrantup.com/downloads.html
+2. Перевирити та оновити VIrtualBox  до останьої версіі за посиланням https://www.virtualbox.org/wiki/Downloads
+3. Встановити Ansible згідно документациії http://docs.ansible.com/intro_installation.html
+4. Встановити git 
+5. Розгорнути проект 
+
+Клонувати цій проект до домашної теці
+
+git clone https://github.com/e-government-ua/vagrant.git 
+
+перейти до робочої теки
+cd ./vagrant
+
+завантажити робочий проект e-government-ua у  теку project
 cd ./project
- 
- git clone https://github.com/e-government-ua/i.git
+git clone https://github.com/e-government-ua/i.git
+cd ..
 
- cd ..
-
+Розгорнути віртуальну машину на вагранті
 vagrant up
 
-nano ~/.ssh/known_hosts
+Запустити автомтичну систему деплоя 
+ansible-playbook ./ansible/site.yml -i ./ansible/hosts
 
-drop key previous vagrant installation if need 
+останнім повідомленням має бути подібна строка
+PLAY RECAP ******************************************************************** 
+e-gov                      : ok=28   changed=24   unreachable=0    failed=0 
 
-ansible-playbook ./ansible/site.yml -i ./ansible/hosts  -vvv
+В улюбленному браузерi відкрити сторінку з проектом
 
-open address 192.168.10.10:8080
+http://192.168.10.10:8080/wf-dniprorada/
+
+В теці project  можно вести розробку та деплоїти зміни в java аплікації за допомогою команди
+
+ansible-playbook ./ansible/deploy.yml -i ./ansible/hosts
+
+#Виришення проблем
+
+##Питання:  
+Якщо після команди  ansible-playbook ./ansible/site.yml -i ./ansible/hosts виникає помилка:
+TASK: [tomcat | Install Java 1.7] ********************************************* 
+FATAL: no hosts matched or all hosts have already failed -- aborting
+
+###Відповідь: 
+спробуйте видалити ключі попереднього доступу до вагранту в файлі ~/.ssh/known_hosts
+
+
+
+
