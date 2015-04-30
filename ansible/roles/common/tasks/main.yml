@@ -1,0 +1,25 @@
+---
+- name: install base utils (mc, nano)
+  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+  - mc
+  - bsdutils
+  - less
+  - nano
+  - bash-completion
+  - openssl
+  - ca-certificates
+  - ntp
+  - locales
+  - vim
+  - git
+  - curl
+  tags:
+    - base_utils
+
+- name: set mcedit by default editor
+  shell: update-alternatives --set editor /usr/bin/mcedit
+  tags:
+    - editor
+    - defaults
+

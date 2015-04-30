@@ -3,6 +3,12 @@
 - name: Stop Tomcat
   service: name=tomcat state=stopped 
 
+- name: delete project dir
+  shell: rm -rf /project
+
+- name: get repo 
+  git: repo=https://github.com/e-government-ua/i.git dest=/project clone=yes version=test
+
 - name: Clean up the project
   command: /usr/bin/mvn clean
   args:

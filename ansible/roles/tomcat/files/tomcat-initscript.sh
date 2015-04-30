@@ -1,4 +1,13 @@
 #!/bin/bash
+### BEGIN INIT INFO
+# Provides: tomcat
+# Required-Start:    $local_fs $syslog 
+# Required-Stop:     $local_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start tomcat daemons
+### END INIT INFO
+
 #
 # chkconfig: 345 99 28
 # description: Starts/Stops Apache Tomcat
@@ -15,7 +24,7 @@
 #
  
 #Location of JAVA_HOME (bin files)
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-i386/
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
  
 #Add Java binary files to PATH
 export PATH=$JAVA_HOME/bin:$PATH

@@ -1,6 +1,6 @@
 ---
 - name: Install Java 1.7
-  apt: name=openjdk-7-jdk state=present update_cache=yes
+  apt: name=openjdk-7-jdk state=present install_recommends=false update_cache=yes
 
 - name: add group "tomcat"
   group: name=tomcat
@@ -11,6 +11,14 @@
 
 - name: delete home dir for symlink of tomcat
   shell: rm -fr /usr/share/tomcat
+  sudo: True
+
+- name: delete /opt/apache-maven
+  shell: rm -fr /opt/apache-maven
+  sudo: True
+
+- name: delete /opt/apache-tomcat
+  shell: rm -fr /opt/apache-tomcat
   sudo: True
 
 - name: download maven
@@ -59,8 +67,7 @@
 
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
-
-
+  tags: [service,tomcat]
 
 - name: wait for tomcat to start
   wait_for: port={{http_port}}
