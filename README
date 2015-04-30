@@ -5,8 +5,6 @@
 3. Встановити Ansible згідно документациії http://docs.ansible.com/intro_installation.html
 4. Встановити git 
 5. Розгорнути проект 
-Клонувати цій проект до домашної теці
-git clone https://github.com/e-government-ua/vagrant.git 
 
 перейти до робочої теки
 cd ./vagrant
@@ -14,14 +12,6 @@ cd ./vagrant
 ./start.sh
 
 або в ручному режимі:
-
-завантажити робочий проект e-government-ua у  теку project
-cd ./project
-rm -rf * 
-git clone https://github.com/e-government-ua/i.git .
-git checkout test
-touch .new
-cd ..
 
 Розгорнути віртуальну машину на вагранті
 vagrant up
