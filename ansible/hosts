@@ -1,2 +1,20 @@
-[tomcat-servers]
-vagrant ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_ssh_user=vagrant ansible_sudo=true
+#!/usr/bin/python
+import json, sys, getopt
+conf = {'tomcat-servers': {
+    'ansible_ssh_host': '127.0.0.1',
+    'ansible_ssh_port': 22,
+#    'ansible_ssh_private_key_file': '~/.vagrant.d/insecure_private_key',
+    'ansible_ssh_user': 'vagrant',
+    'ansible_ssh_pass': 'vagrant',
+    'ansible_sudo': True
+}}
+
+def main(args):
+    if len(args) == 1 and args[0] == '--list':
+        print json.dumps(conf)
+        sys.exit()
+
+if __name__ == "__main__":
+   main(sys.argv[1:])
+
+#vagrant ansible_ssh_host=127.0.0.1 ansible_ssh_port=2222 ansible_ssh_private_key_file=~/.vagrant.d/insecure_private_key ansible_ssh_user=vagrant ansible_sudo=true

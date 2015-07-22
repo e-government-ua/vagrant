@@ -14,18 +14,13 @@
   args:
     chdir: /project
 
-- name: Clean redis 
-  command: /usr/bin/mvn clean install 
-  args:
-    chdir: /project/redis  
-
 - name: Building workflow project
   command: /usr/bin/mvn install -DskipTests
   args:
     chdir: /project
 
 - name: copy application to webapp directory
-  command: cp /project/wf-dniprorada/target/wf-dniprorada.war /usr/share/tomcat/webapps/wf-dniprorada.war
+  command: cp /project/wf-base/target/wf-base.war /usr/share/tomcat/webapps/wf-base.war
 
 - name: Start Tomcat
   service: name=tomcat state=started enabled=yes
