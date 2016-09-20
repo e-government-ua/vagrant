@@ -16,10 +16,14 @@
   - curl
   tags:
     - base_utils
+  become: true
+  become_user: root
 
 - name: set mcedit by default editor
   shell: update-alternatives --set editor /usr/bin/mcedit
   tags:
     - editor
     - defaults
+  become: true
+  become_user: root
 

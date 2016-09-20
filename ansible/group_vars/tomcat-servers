@@ -1,7 +1,7 @@
 # Here are variables related to the Tomcat installation
 
-tomcat_url: http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.21/bin/apache-tomcat-8.0.21.tar.gz
-maven_url: http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz
+tomcat_url: http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.37/bin/apache-tomcat-8.0.37.tar.gz
+maven_url: http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
 
 http_port: 8080
 https_port: 8443

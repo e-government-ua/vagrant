@@ -7,19 +7,15 @@
 
 - name: add user "tomcat"
   user: name=tomcat group=tomcat home=/usr/share/tomcat
-  sudo: True
 
 - name: delete home dir for symlink of tomcat
   shell: rm -fr /usr/share/tomcat
-  sudo: True
 
 - name: delete /opt/apache-maven
   shell: rm -fr /opt/apache-maven
-  sudo: True
 
 - name: delete /opt/apache-tomcat
   shell: rm -fr /opt/apache-tomcat
-  sudo: True
 
 - name: download maven
   get_url: url={{maven_url}} dest=/root/apache-maven.tar.gz
