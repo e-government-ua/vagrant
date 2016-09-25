@@ -5,6 +5,4 @@
 #cd ./project/ && git checkout test
 #touch .new
 #cd ..
-vagrant up
-ansible-playbook ./ansible/site.yml -i ./ansible/hosts -vvv
-
+vagrant up --provision

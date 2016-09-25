@@ -1,19 +1,18 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-VAGRANTFILE_API_VERSION = "2"
+Vagrant.configure("2") do |config|
 
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-
-  #config.vm.box = "ubuntu/trusty32"
-
-  config.vm.box = "chef/debian-7.7"
+  #
+  # Run Ansible from the Vagrant Host
+  #
+  config.vm.box = "bento/debian-8.5"
   config.vm.network "private_network", ip: "192.168.10.10"
-#  config.vm.synced_folder "./project", "/root/project"
   config.ssh.insert_key = false
-
-
-#  config.vm.provision :shell, path: "scripts/prepare_machine.sh"
-# config.vm.provision :shell, privileged: false, path: "scripts/update_wf_fast.sh"
-
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "./ansible/site.yml"
+    ansible.inventory_path = "./ansible/hosts"
+    ansible.limit = "tomcat-servers"
+    ansible.raw_arguments  = "-vvv"
+  end
 end
