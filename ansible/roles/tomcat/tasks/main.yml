@@ -1,69 +1,75 @@
 ---
-- name: Install Java 1.7
-  apt: name=openjdk-7-jdk state=present install_recommends=false update_cache=yes
+- name: Install Java 1.8 and Tomca8
+  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
+  with_items:
+  - openjdk-8-jdk
+  - tomcat8
+  - maven
+  tags:
+    - tomcat8
 
-- name: add group "tomcat"
-  group: name=tomcat
+# - name: add group "tomcat"
+#   group: name=tomcat
 
-- name: add user "tomcat"
-  user: name=tomcat group=tomcat home=/usr/share/tomcat
+# - name: add user "tomcat"
+#   user: name=tomcat group=tomcat home=/usr/share/tomcat
 
-- name: delete home dir for symlink of tomcat
-  shell: rm -fr /usr/share/tomcat
+# - name: delete home dir for symlink of tomcat
+#   shell: rm -fr /usr/share/tomcat
 
-- name: delete /opt/apache-maven
-  shell: rm -fr /opt/apache-maven
+# - name: delete /opt/apache-maven
+#   shell: rm -fr /opt/apache-maven
 
-- name: delete /opt/apache-tomcat
-  shell: rm -fr /opt/apache-tomcat
+# - name: delete /opt/apache-tomcat
+#   shell: rm -fr /opt/apache-tomcat
 
-- name: download maven
-  get_url: url={{maven_url}} dest=/root/apache-maven.tar.gz
+# - name: download maven
+#   get_url: url={{maven_url}} dest=/root/apache-maven.tar.gz
 
-- name: extract maven
-  command: /bin/tar xzf /root/apache-maven.tar.gz chdir=/opt creates=/opt/apache-maven
+# - name: extract maven
+#   command: /bin/tar xzf /root/apache-maven.tar.gz chdir=/opt creates=/opt/apache-maven
 
-- name: rename maven dir
-  shell: mv /opt/apache-maven* /opt/apache-maven
+# - name: rename maven dir
+#   shell: mv /opt/apache-maven* /opt/apache-maven
 
-- name: place maven on execution path
-  file: src=/opt/apache-maven/bin/mvn dest=/usr/bin/mvn  state=link
+# - name: place maven on execution path
+#   file: src=/opt/apache-maven/bin/mvn dest=/usr/bin/mvn  state=link
 
 - name: copy maven settings
   copy: src=maven.sh dest=/etc/profile.d owner=root group=root mode=0644
 
-- name: Download Tomcat
-  get_url: url={{tomcat_url}} dest=/root/apache-tomcat.tar.gz
+# - name: Download Tomcat
+#   get_url: url={{tomcat_url}} dest=/root/apache-tomcat.tar.gz
 
-- name: Extract archive
-  command: chdir=/opt /bin/tar zxf /root/apache-tomcat.tar.gz creates=/opt/apache-tomcat
+# - name: Extract archive
+#   command: chdir=/opt /bin/tar zxf /root/apache-tomcat.tar.gz creates=/opt/apache-tomcat
 
-- name: rename tomcat dir
-  shell: mv /opt/apache-tomcat* /opt/apache-tomcat
+# - name: rename tomcat dir
+#   shell: mv /opt/apache-tomcat* /opt/apache-tomcat
 
-- name: Symlink install directory
-  file: src=/opt/apache-tomcat path=/usr/share/tomcat state=link
+# - name: Symlink install directory
+#   file: src=/opt/apache-tomcat path=/usr/share/tomcat state=link
 
-- name: Change ownership of Tomcat installation
-  file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
+# - name: Change ownership of Tomcat installation
+#   file: path=/usr/share/tomcat/ owner=tomcat group=tomcat state=directory recurse=yes
 
-- name: copy egov-env setting
-  copy: src=egov-env.sh dest=/etc/profile.d owner=root group=root mode=0644
+# - name: copy egov-env setting
+#   copy: src=egov-env.sh dest=/etc/profile.d owner=root group=root mode=0644
 
 - name: Configure Tomcat server
-  template: src=server.xml dest=/usr/share/tomcat/conf/
+  template: src=server.xml dest=/var/lib/tomcat8/conf/
   notify: restart tomcat
 
 - name: Configure Tomcat users
-  template: src=tomcat-users.xml dest=/usr/share/tomcat/conf/
+  template: src=tomcat-users.xml dest=/var/lib/tomcat8/conf/
   notify: restart tomcat
 
-- name: Install Tomcat init script
-  copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
+# - name: Install Tomcat init script
+#   copy: src=tomcat-initscript.sh dest=/etc/init.d/tomcat mode=0755
 
 - name: Start Tomcat
-  service: name=tomcat state=started enabled=yes
+  service: name=tomcat8 state=started enabled=yes
   tags: [service,tomcat]
 
 - name: wait for tomcat to start
-  wait_for: port={{http_port}}
+  wait_for: port={{central_http_port}}

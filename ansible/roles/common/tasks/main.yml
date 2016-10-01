@@ -1,4 +1,7 @@
 ---
+# Add specified repository into sources list.
+# - name: enable backports repo
+#   apt_repository: repo='deb http://httpredir.debian.org/debian jessie-backports main' state=present filename='jessie-backports'
 - name: install base utils (mc, nano)
   apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
   with_items:
@@ -16,14 +19,9 @@
   - curl
   tags:
     - base_utils
-  become: true
-  become_user: root
-
+  
 - name: set mcedit by default editor
   shell: update-alternatives --set editor /usr/bin/mcedit
   tags:
     - editor
     - defaults
-  become: true
-  become_user: root
-

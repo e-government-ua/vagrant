@@ -6,7 +6,7 @@ Vagrant.configure("2") do |config|
   #
   # Run Ansible from the Vagrant Host
   #
-  config.vm.box = "bento/debian-8.5"
+  config.vm.box = "bento/ubuntu-16.04"
   config.vm.network "private_network", ip: "192.168.10.10"
   config.ssh.insert_key = false
   config.vm.provision "ansible" do |ansible|

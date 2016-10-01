@@ -3,7 +3,8 @@
 tomcat_url: http://www.eu.apache.org/dist/tomcat/tomcat-8/v8.0.37/bin/apache-tomcat-8.0.37.tar.gz
 maven_url: http://www.gtlib.gatech.edu/pub/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
 
-http_port: 8080
+region_http_port: 8081
+central_http_port: 8080
 https_port: 8443
 
 # This will configure a default manager-gui user:
