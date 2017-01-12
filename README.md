@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/e-government-ua/vagrant.svg?branch=master)](https://travis-ci.org/e-government-ua/vagrant)
 # Як розгорнути тестове середовище розробника
 
 ## В перший раз треба встановити деякі залежності.
@@ -12,18 +13,19 @@
 ```
 apt-get install ansible vagrant virtualbox
 ```
-
-Якщо у вас інша системах Linux/Unix, то спробуйте встановити пакети: ansible, vagrant, virtualbox за допомогою інструментів вашого дистрибутуву.
+Якщо у вас інша системах Linux/Unix, то спробуйте встановити пакети: ansible, vagrant, та virtualbox за допомогою інструментів вашого дистрибутуву.
 
 ## Отримати
 ```
 git clone git@github.com:e-government-ua/vagrant.git
 ```
+
 ## Запустити
 ```
 cd vagrant 
 ./start.sh
 ```
+
 ##Перевірити
 Останнім повідомленням має бути подібна строка:
 ```
