@@ -1,6 +1,3 @@
-# -*- mode: ruby -*-
-# vi: set ft=ruby :
-
 Vagrant.configure("2") do |config|
 
   #
@@ -13,6 +10,6 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "./ansible/site.yml"
     ansible.inventory_path = "./ansible/hosts"
     ansible.limit = "tomcat-servers"
-    ansible.raw_arguments  = "-vvv"
+    #ansible.raw_arguments  = "-vvv"
   end
 end

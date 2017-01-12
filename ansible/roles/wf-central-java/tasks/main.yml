@@ -1,13 +1,4 @@
 ---
-- name: Stop Tomcat
-  service: name=tomcat8 state=stopped 
-
-- name: delete project dir
-  shell: rm -rf /project
-
-- name: get repo 
-  git: repo=https://github.com/e-government-ua/i.git dest=/project version=test
-
 - name: Clean up the project
   command: /usr/bin/mvn clean
   args:
@@ -19,12 +10,6 @@
   command: /usr/bin/mvn tomcat7:run-war -DskipTests
   args:
     chdir: /project/wf-central
-
-# - name: copy application to webapp directory
-#   command: cp /project/wf-central/target/wf-central.war /var/lib/tomcat8/webapps/wf-central.war
-
-- name: Start Tomcat
-  service: name=tomcat8 state=restarted enabled=yes
 
 - name: wait for tomcat to start
   wait_for: port={{central_http_port}}

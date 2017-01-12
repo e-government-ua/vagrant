@@ -1,31 +1,31 @@
 # Як розгорнути тестове середовище розробника
 
+## В перший раз треба встановити деякі залежності.
+
+### У Windows:
 1. Завантажити та встановити Vagrant за посиланням  https://www.vagrantup.com/downloads.html;
 2. Перевирити та оновити VirtualBox до останьої версіі за посиланням https://www.virtualbox.org/wiki/Downloads;
 3. Встановити Ansible згідно документациії http://docs.ansible.com/intro_installation.html;
 4. Встановити git;
-5. Розгорнути проект.
 
-Перейти до робочої директорії:
-cd ./vagrant
+### В Ubuntu:
+`apt-get install ansible vagrant virtualbox`
 
+## Склонувати репозиторій
+`git clone git@github.com:e-government-ua/vagrant.git`
+
+Перейти до робочої директорії та запустити :
+```
+cd vagrant 
 ./start.sh
-
-або в ручному режимі:
-
-Розгорнути віртуальну машину за допомогою Vagrant:
-vagrant up
-
-Запустити автомтичну систему для деплоймента: 
-ansible-playbook ./ansible/site.yml -i ./ansible/hosts
-
-останнім повідомленням має бути подібна строка
+```
+Останнім повідомленням має бути подібна строка
 PLAY RECAP ******************************************************************** 
 e-gov                      : ok=28   changed=24   unreachable=0    failed=0 
 
 В улюбленному браузерi відкрити сторінку з проектом
 
-http://192.168.10.10:8080/wf-dniprorada/
+http://192.168.10.10:8080/wf/
 
 В директорії project  можно вести розробку та деплоїти зміни в java аплікації за допомогою команди
 
