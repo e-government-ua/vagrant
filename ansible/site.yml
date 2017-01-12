@@ -6,7 +6,6 @@
   become_user: root
 
   roles:
-    - common
     - tomcat
     - wf-central-java
     - wf-region-java

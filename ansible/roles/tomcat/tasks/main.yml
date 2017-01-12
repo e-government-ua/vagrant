@@ -13,11 +13,11 @@
 
 - name: Configure Tomcat server
   template: src=server.xml dest=/var/lib/tomcat8/conf/
-  notify: restart tomcat
+  notify: Restart tomcat
 
 - name: Configure Tomcat users
   template: src=tomcat-users.xml dest=/var/lib/tomcat8/conf/
-  notify: restart tomcat
+  notify: Restart tomcat
 
 - name: Start Tomcat
   service: name=tomcat8 state=started enabled=yes
