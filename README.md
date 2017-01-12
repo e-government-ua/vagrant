@@ -10,10 +10,18 @@
 4. Встановити [Git](https://git-scm.com/download/win);
 
 ### В Ubuntu:
+Спочатку додати PPA з Ansible:
 ```
-apt-get install ansible vagrant virtualbox
+sudo apt-get install software-properties-common
+sudo apt-add-repository ppa:ansible/ansible -y
+sudo apt-get update
 ```
-Якщо у вас інша системах Linux/Unix, то спробуйте встановити пакети: ansible, vagrant, та virtualbox за допомогою інструментів вашого дистрибутуву.
+Потім встановити необхідні пакети
+```
+sudo apt-get install ansible vagrant virtualbox
+```
+### Інша система
+Для інших систем Linux або Unix спробуйте встановити пакети: ansible, vagrant, та virtualbox за допомогою інструментів вашої системи.
 
 ## Отримати
 ```

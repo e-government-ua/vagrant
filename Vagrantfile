@@ -1,5 +1,4 @@
 Vagrant.configure("2") do |config|
-
   #
   # Run Ansible from the Vagrant Host
   #
