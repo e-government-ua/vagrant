@@ -4,12 +4,18 @@
   args:
     chdir: /project/wf-central
 
-- name: Building workflow project
-  async: 1000
-  poll: 0
-  command: /usr/bin/mvn tomcat7:run-war -DskipTests
+- name: Build workflow project
+  command: /usr/bin/mvn package -DskipTests
   args:
     chdir: /project/wf-central
 
-- name: wait for tomcat to start
-  wait_for: port={{central_http_port}}
+- name: Deploy artifact to tomcat
+  command: curl -s --upload-file /project/wf-central/target/wf-central.war "http://{{ tomcat_user }}:{{ tomcat_pass }}@127.0.0.1:{{ tomcat_port | default(8080) }}/manager/text/deploy?path=/wf-central&update=true"
+  register: curl_output
+
+
+- name: Fail playbook if deployment failed
+  fail: msg="Deployment failed"
+  when: "item.stdout is defined and 'FAIL' in item.stdout"
+  with_items:
+    - "{{ curl_output.results }}"
