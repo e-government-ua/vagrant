@@ -1,3 +1,6 @@
+$vm_memory = 2048
+$vm_cpus = 2
+
 $install_ansible = <<SCRIPT
 apt-get -y install software-properties-common
 apt-add-repository ppa:ansible/ansible
