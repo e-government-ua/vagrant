@@ -1,6 +1,5 @@
 [![Build Status](https://travis-ci.org/e-government-ua/vagrant.svg?branch=master)](https://travis-ci.org/e-government-ua/vagrant)
 # Як розгорнути тестове середовище розробника
-
 ## Отримати
 ```
 git clone git@github.com:e-government-ua/vagrant.git
