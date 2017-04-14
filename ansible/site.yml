@@ -1,5 +1,5 @@
 ---
-# This playbook deploys a simple standalone Tomcat 7 server. 
+# This playbook deploys a simple standalone Tomcat 8 server.
 
 - hosts: tomcat-servers
   become: true

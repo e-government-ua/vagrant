@@ -1,27 +1,55 @@
 ---
-- name: Install Java 1.8 and Tomca8
-  apt: name={{ item }} state=latest update_cache=yes cache_valid_time=3600
+- name: Install Java 1.8 and Tomcat 8
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+    cache_valid_time: 3600
   with_items:
-  - openjdk-8-jdk
-  - tomcat8
-  - maven
+    - openjdk-8-jdk
+    - tomcat8
+    - tomcat8-admin
+    - maven
   tags:
     - tomcat8
 
-- name: copy maven settings
-  copy: src=maven.sh dest=/etc/profile.d owner=root group=root mode=0644
+- name: Configure maven settings
+  template:
+    src: maven.sh.j2
+    dest: /etc/profile.d/maven.sh
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Configure Calatina options
+  template:
+    src: setenv.sh.j2
+    dest: "{{ tomcat_bin_dir }}/setenv.sh"
+    mode: 0755
+  notify: Restart tomcat
 
 - name: Configure Tomcat server
-  template: src=server.xml dest=/var/lib/tomcat8/conf/
+  template:
+    src: server.xml.j2
+    dest: "{{ tomcat_conf_dir }}/server.xml"
   notify: Restart tomcat
 
 - name: Configure Tomcat users
-  template: src=tomcat-users.xml dest=/var/lib/tomcat8/conf/
+  template:
+    src: tomcat-users.xml.j2
+    dest: "{{ tomcat_conf_dir }}/tomcat-users.xml"
   notify: Restart tomcat
 
 - name: Start Tomcat
-  service: name=tomcat8 state=started enabled=yes
+  service:
+    name: tomcat8
+    state: started
+    enabled: yes
   tags: [service,tomcat]
 
-- name: wait for tomcat to start
-  wait_for: port={{central_http_port}}
+- name: Wait for tomcat to start
+  wait_for:
+    port: "{{ central_http_port }}"
+
+# force handlers to run at this point rathen than at the end of play execution
+- meta: flush_handlers

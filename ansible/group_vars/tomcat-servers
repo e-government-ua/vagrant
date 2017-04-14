@@ -2,10 +2,7 @@
 
 region_http_port: 8081
 central_http_port: 8080
-https_port: 8443
 
 # This will configure a default manager-gui user:
-
-admin_username: admin
-admin_password: adminsecret
-
+tomcat_user: admin
+tomcat_pass: adminsecret
