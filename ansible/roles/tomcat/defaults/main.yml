@@ -1,0 +1,9 @@
+---
+https_port: 8443
+tomcat_conf_dir: "/var/lib/tomcat8/conf"
+tomcat_bin_dir: "/usr/share/tomcat8/bin"
+java_xmx: "512M"
+java_xms: "256M"
+java_permsize: "256M"
+java_maxpermsize: "512M"
+java_metaspacesize: "512M"
