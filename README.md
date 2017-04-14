@@ -4,10 +4,7 @@
 ## В перший раз треба встановити деякі залежності.
 
 ### У Windows:
-1. Завантажити та встановити [Vagrant](https://www.vagrantup.com/downloads.html);
-2. Перевирити та оновити [VirtualBox](https://www.virtualbox.org/wiki/Downloads) до останьої версіі;
-3. Встановити Ansible згідно [документациії](http://docs.ansible.com/intro_installation.html);
-4. Встановити [Git](https://git-scm.com/download/win);
+Запустити скрипт `prestart.bat` від імені адміністратора
 
 ### В Ubuntu:
 Спочатку додати PPA з Ansible:
@@ -29,12 +26,18 @@ git clone git@github.com:e-government-ua/vagrant.git
 ```
 
 ## Запустити
+### В Linux
 ```
 cd vagrant 
 ./start.sh
 ```
 
-##Перевірити
+### У Windows
+```
+start.bat
+```
+
+## Перевірити
 Останнім повідомленням має бути подібна строка:
 ```
 PLAY RECAP *********************************************************************
